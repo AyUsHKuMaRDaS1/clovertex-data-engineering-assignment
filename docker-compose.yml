@@ -1,0 +1,7 @@
+services:
+  clovertex-pipeline:
+    build: .
+    container_name: clovertex_pipeline
+    volumes:
+      - ./datalake:/app/datalake
+    command: python pipeline/main.py

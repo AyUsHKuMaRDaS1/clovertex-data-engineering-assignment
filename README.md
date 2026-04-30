@@ -1,5 +1,7 @@
 # Clovertex Data Engineering Assignment
 
+![CI](https://github.com/AyUsHKuMaRDaS1/clovertex-data-engineering-assignment/actions/workflows/ci.yml/badge.svg)
+
 ## Overview
 
 This repository contains a local data engineering pipeline for clinical and genomics data. It ingests raw files, cleans and unifies patient records, joins clinical events, filters genomics variants, organizes outputs into a data lake, performs analytics, and generates visualizations.

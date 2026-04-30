@@ -1,8 +1,11 @@
+"""Simple loader for raw dataset files used by the pipeline."""
+
 import pandas as pd
 import os
 
 
 def load_data():
+    """Load supported raw files from the data directory into pandas dataframes."""
     data = {}
 
     

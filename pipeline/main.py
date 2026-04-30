@@ -1,3 +1,10 @@
+"""Main pipeline entrypoint and orchestration module.
+
+This module coordinates ingestion, cleaning, patient unification,
+dataset joining, genomics filtering, output saving, analytics,
+visualization, and manifest generation.
+"""
+
 import os
 import sys
 import pandas as pd
@@ -16,6 +23,7 @@ from plots.visualization import run_task_4
 
 
 def main():
+    """Run the full data pipeline and print progress messages."""
     print("\nCopying Raw Data...\n")
     copy_raw_data()
 

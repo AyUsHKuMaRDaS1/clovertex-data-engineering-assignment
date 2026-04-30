@@ -1,4 +1,8 @@
+"""Dataset joining logic that links cleaned source tables by patient ID."""
+
+
 def join_all(cleaned_data, patients_df):
+    """Merge cleaned source datasets onto the unified patient table."""
     final_df = patients_df.copy()
 
     # Lab results

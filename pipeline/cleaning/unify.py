@@ -1,7 +1,10 @@
+"""Patient unification helpers to normalize patient data across source schemas."""
+
 import pandas as pd
 
 
 def unify_patients(data):
+    """Normalize patient tables from different sites and merge into one dataframe."""
     patient_tables = []
 
     for name, df in data.items():

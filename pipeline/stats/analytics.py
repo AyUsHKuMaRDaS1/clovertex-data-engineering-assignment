@@ -1,3 +1,5 @@
+"""Analytics helpers for generating consumption outputs and anomaly reports."""
+
 import os
 import json
 import pandas as pd
@@ -7,6 +9,7 @@ CONSUMPTION_PATH = os.path.join(os.getcwd(), "datalake", "consumption")
 
 
 def save_consumption(df, file_name):
+    """Persist a dataframe to the consumption layer as parquet."""
     os.makedirs(CONSUMPTION_PATH, exist_ok=True)
     path = os.path.join(CONSUMPTION_PATH, file_name)
     df.to_parquet(path, index=False)
@@ -14,6 +17,7 @@ def save_consumption(df, file_name):
 
 
 def patient_summary(patients_df):
+    """Create summary metrics for patient demographics and persist them."""
     df = patients_df.copy()
 
     df["birth_date"] = pd.to_datetime(df["birth_date"], errors="coerce")
@@ -44,6 +48,7 @@ def patient_summary(patients_df):
 
 
 def lab_statistics(cleaned_data):
+    """Compute lab test statistics and identify readings outside reference ranges."""
     labs = cleaned_data["site_gamma_lab_results"].copy()
 
     if "patient_ref" in labs.columns:
@@ -122,6 +127,7 @@ def lab_statistics(cleaned_data):
 
 
 def diagnosis_frequency(cleaned_data):
+    """Summarize diagnosis counts by ICD-10 chapter and persist the results."""
     diagnosis = cleaned_data["diagnoses_icd10"].copy()
 
     ref_path = os.path.join(os.getcwd(), "data", "reference", "icd10_chapters.csv")
@@ -163,6 +169,7 @@ def diagnosis_frequency(cleaned_data):
 
 
 def variant_hotspots(filtered_genomics):
+    """Identify top pathogenic genes and save variant hotspot summaries."""
     df = filtered_genomics.copy()
 
     df["clinical_significance"] = (
@@ -208,6 +215,7 @@ def variant_hotspots(filtered_genomics):
 
 
 def high_risk_patients(cleaned_data, filtered_genomics):
+    """Find patients with both elevated lab values and pathogenic genomics variants."""
     labs = cleaned_data["site_gamma_lab_results"].copy()
 
     if "patient_ref" in labs.columns:
@@ -248,6 +256,7 @@ def high_risk_patients(cleaned_data, filtered_genomics):
 
 
 def anomaly_flags(patients_df, cleaned_data, filtered_genomics):
+    """Flag demographic, laboratory, medication, and genomics anomalies."""
     anomalies = []
 
     patients = patients_df.copy()
@@ -338,6 +347,7 @@ def anomaly_flags(patients_df, cleaned_data, filtered_genomics):
 
 
 def run_task_3(patients_df, cleaned_data, filtered_genomics):
+    """Execute all task 3 analytics functions sequentially."""
     patient_summary(patients_df)
     lab_statistics(cleaned_data)
     diagnosis_frequency(cleaned_data)

@@ -1,14 +1,10 @@
+"""Data cleaning helpers for the pipeline's raw source datasets."""
+
 import pandas as pd
 
 
 def flatten_dict_columns(df):
-    """
-    Converts nested dictionary columns into normal flat columns.
-    Example:
-    name = {"given": "Amit", "family": "Das"}
-    becomes:
-    name_given, name_family
-    """
+    """Convert nested dictionary columns into flattened dataframe columns."""
     df = df.copy()
 
     for col in list(df.columns):
@@ -26,6 +22,7 @@ def flatten_dict_columns(df):
 
 
 def clean_data(df):
+    """Clean a dataframe and return the cleaned result plus quality metrics."""
     rows_in = len(df)
 
     # 1. standardize column names
